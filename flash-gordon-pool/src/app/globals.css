@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
+
+:root {
+  --electric: #00BFFF;
+  --gold: #F5C400;
+  --navy: #0d1b2a;
+  --navy-dark: #080f18;
+  --chrome: #C0C0C0;
+  --background: #080f18;
+  --foreground: #e8e8e8;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #080f18;
+  color: #e8e8e8;
+  font-family: "Exo 2", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #080f18; }
+::-webkit-scrollbar-thumb { background: rgba(0,191,255,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,191,255,0.6); }
+
+@layer utilities {
+  .font-orbitron { font-family: "Orbitron", sans-serif; }
+  .font-exo { font-family: "Exo 2", sans-serif; }
+  .text-electric { color: #00BFFF; }
+  .text-gold { color: #F5C400; }
+
+  .glow-electric {
+    box-shadow: 0 0 20px rgba(0,191,255,0.4), 0 0 40px rgba(0,191,255,0.2);
+  }
+  .glow-electric-lg {
+    box-shadow: 0 0 40px rgba(0,191,255,0.6), 0 0 80px rgba(0,191,255,0.3);
+  }
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(245,196,0,0.4), 0 0 40px rgba(245,196,0,0.2);
+  }
+  .text-shadow-electric {
+    text-shadow: 0 0 20px rgba(0,191,255,0.6), 0 0 40px rgba(0,191,255,0.3);
+  }
+  .text-shadow-gold {
+    text-shadow: 0 0 20px rgba(245,196,0,0.6), 0 0 40px rgba(245,196,0,0.3);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0,191,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,191,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+/* Section label */
+.section-label {
+  display: inline-block;
+  font-family: "Orbitron", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #00BFFF;
+  border: 1px solid rgba(0,191,255,0.3);
+  border-radius: 9999px;
+  padding: 0.35rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(0,191,255,0.05);
+}
+
+/* Sci-fi scan line animation */
+@keyframes scandown {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+/* Horizontal gradient rule */
+.hr-electric {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00BFFF55, #00BFFF, #00BFFF55, transparent);
+  border: none;
+}
+.hr-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #F5C40055, #F5C400, #F5C40055, transparent);
+  border: none;
+}
