@@ -490,7 +490,26 @@ const CHAPTERS = [
             'PART B — LAND AND SHOOT: Take your stance. Use your best final stroke and shoot. No warm-up strokes or in-stance adjustments allowed. This tests how precisely you land on the line.'
           ],
           review:'Record your misses (left or right of the pocket) and your makes. Close misses would be pocketed with fine-tuned aim. Missing wide means your line-up while landing needs work.',
-          diagram: makeSVG({ portrait:true, balls:[{n:'CB',x:fcp(0.22),y:frp(0.12)},{n:'1',x:fcp(0.73),y:frp(0.27)},{n:'G',x:fcp(0.43),y:frp(0.63)},{n:'G',x:fcp(0.55),y:frp(0.63)}], shotPics:[{x:fcp(0.25),y:frp(0.87),r:13,dx:0.2,dy:0},{x:fcp(0.63),y:frp(0.87),r:13,dx:0.2,dy:0}], lines:[{x1:fcp(0.22),y1:frp(0.12),x2:fcp(1.0),y2:frp(0.0),col:'#fff8',w:1},{x1:fcp(0.43),y1:frp(0.02),x2:fcp(0.43),y2:frp(0.63),col:'#fff5',w:1,dash:true},{x1:fcp(0.55),y1:frp(0.02),x2:fcp(0.55),y2:frp(0.63),col:'#fff5',w:1,dash:true}]}),
+          diagram: makeSVG({ portrait:true,
+            balls:[
+              {n:'CB', x:fcp(0.72), y:frp(0.20)}
+            ],
+            shotPics:[
+              {x:fcp(0.24), y:frp(0.90), r:13, dx:0, dy:0},
+              {x:fcp(0.72), y:frp(0.90), r:13, dx:0, dy:0}
+            ],
+            lines:[
+              {x1:fcp(0.50), y1:frp(0.00), x2:fcp(0.50), y2:frp(1.00), col:'#ffffff55', w:1, dash:true},
+              {x1:fcp(0.72), y1:frp(0.20), x2:fcp(0.89), y2:frp(0.04), col:'#ffffffcc', w:1},
+              {x1:fcp(0.72), y1:frp(0.20), x2:fcp(0.97), y2:frp(0.08), col:'#ffffff70', w:1, dash:true}
+            ],
+            labels:[
+              {t:'First', x:fcp(0.77), y:frp(0.09), col:'#ffffff'},
+              {t:'Other', x:fcp(0.88), y:frp(0.15), col:'#ffffff'},
+              {t:'PART A', x:fcp(0.24), y:frp(0.83), col:'#00BFFF'},
+              {t:'PART B', x:fcp(0.72), y:frp(0.83), col:'#F5C400'}
+            ]
+          }),
           scoring:{ type:'landLine', id:'d-landline' }
         },
         {
@@ -1171,6 +1190,7 @@ const CHAPTERS = [
             'PART B — STRAIGHT DOWN THE RAIL: CB and OB aligned for Pocket A. Both near the rail. Use a half tip of follow, Speed 4-5. CB should advance down the rail to the next position.'
           ],
           review:'The key is to develop sensitivity for how follow speed changes with small increments of stroke force.',
+          diagram: `<img src="diagrams/d-follow-shots.jpg" alt="The Follow Shot diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-follow-shots', labelA:'PART A (SOFT FOLLOW)', labelB:'PART B (RAIL FOLLOW)', shots:5 }
         },
         {
@@ -1183,6 +1203,7 @@ const CHAPTERS = [
             'Run 5 shots at each distance. Track clean stops vs. rolls forward or draws back.'
           ],
           review:'A CB that rolls forward means you hit too high. A CB that draws back means you hit below center. Dead center = dead stop.',
+          diagram: `<img src="diagrams/d-stop-shots.jpg" alt="The Stop Shot diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-stop-shots', labelA:'SHORT DISTANCE', labelB:'LONG DISTANCE', shots:5 }
         },
         {
@@ -1218,6 +1239,7 @@ const CHAPTERS = [
             'VERSION 2 — ACROSS THE TABLE DRAW SHOT: Shot at a slight angle. CB goes across the table via the draw path. Note: the path for CB 5 will be closest to the left side rail.'
           ],
           review:'The half diamond is particularly reliable because the CB is traveling a relatively short distance to the rail before rebounding.',
+          diagram: `<img src="diagrams/d-half-diamond.jpg" alt="The Half Diamond Shot diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-half-diamond', labelA:'V1 (INTO RAIL)', labelB:'V2 (ACROSS TABLE)', shots:5 }
         },
         {
@@ -1230,6 +1252,7 @@ const CHAPTERS = [
             'From Cue Ball C, the shot requires a stun/follow combination. Note the path difference.'
           ],
           review:'The stun shot is one of the most practical position plays in pool. Once you know it, countless positions simplify dramatically.',
+          diagram: `<img src="diagrams/d-stun-shots.jpg" alt="Stun Shots diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-stun-shots', showPct:true }
         },
         {
@@ -1241,6 +1264,7 @@ const CHAPTERS = [
             'Strike the CB dead center, Medium Hard (6) or higher. After contact, CB follows the tangent line directly into Pocket A.',
             'If you can consistently make the CB scratch from long range, shorter versions become simple.'
           ],
+          diagram: `<img src="diagrams/d-dead-scratch.jpg" alt="The Dead Scratch diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-dead-scratch', showPct:true }
         }
       ]
@@ -1260,6 +1284,7 @@ const CHAPTERS = [
             'Goal: 5 equally spaced CB endings between start and end rail.'
           ],
           review:'If your speed jumps instead of progressing smoothly, your stroke is inconsistent. Focus on feeling the acceleration change, not just striking harder.',
+          diagram: `<img src="diagrams/d-zeroing-in.jpg" alt="Zeroing In diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-zeroing-in', showPct:true, label:'CB LANDS IN ZONE' }
         },
         {
@@ -1273,6 +1298,7 @@ const CHAPTERS = [
             'Try to make each target ball land exactly on the next one\'s position marker.'
           ],
           review:'Like piano scales, the value is not in this specific exercise but in developing smooth gradations across the full speed range.',
+          diagram: `<img src="diagrams/d-piano-scales.jpg" alt="Piano Scales diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-piano-scales', showPct:true, label:'ON TARGET' }
         },
         {
@@ -1284,6 +1310,7 @@ const CHAPTERS = [
             'PART B — THIN CUT POCKET HANGERS: A pocket hanger. Use a very soft stroke. These shots test your ability to be gentle under pressure.',
             'PART C — SCRATCH IF YOU CAN: Pocket the ball extremely thin and get enough draw spin to reverse the CB back up the table. Speed: Medium Soft (4).'
           ],
+          diagram: `<img src="diagrams/d-surgeons-touch.jpg" alt="The Surgeon's Touch diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissMulti', id:'d-surgeons-touch', groups:['PART A (POCKET SPEED)', 'PART B (HANGERS)', 'PART C (THIN + DRAW)'], shots:5 }
         }
       ]
@@ -1303,6 +1330,7 @@ const CHAPTERS = [
             'Mark each CB ending position. Notice the pattern.'
           ],
           review:'The 90-degree rule (for stun shots, CB goes 90° to OB path) is your baseline. Follow adds angle forward, draw reverses it.',
+          diagram: `<img src="diagrams/d-angle-departure.jpg" alt="Angle of Departure diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-angle-departure', showPct:true, label:'IN POSITION ZONE' }
         },
         {
@@ -1315,6 +1343,7 @@ const CHAPTERS = [
             'Shoot from multiple positions to map out the differences between stun and follow rebound paths.'
           ],
           review:'The CB never obeys the pure geometry law because it always picks up some sidespin at the rail. Factor this into your position plans.',
+          diagram: `<img src="diagrams/d-rebound.jpg" alt="The Rebound diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-rebound', showPct:true, label:'CB IN TARGET ZONE' }
         }
       ]
@@ -1333,6 +1362,7 @@ const CHAPTERS = [
             'From the position in the diagram, shoot twice to get a feel, then try to send CB to marker position.'
           ],
           review:'Allowing sufficiently for deflection is the main challenge. Inside english counters throw, which is a positive, but deflection compensation is tricky.',
+          diagram: `<img src="diagrams/d-inside-3rail.jpg" alt="Inside Three Railer diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-inside-3rail', showPct:true, label:'CB IN ZONE' }
         },
         {
@@ -1345,6 +1375,7 @@ const CHAPTERS = [
             'Try stopping CB at Marker A. Then shoot same shot aiming for Marker B (using harder stroke with half tip of follow and no english).',
             'Notice the big difference in the CB\'s path between the two shots.'
           ],
+          diagram: `<img src="diagrams/d-side-3rail.jpg" alt="Side Pocket 3-Railer diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-side-3rail', labelA:'WITH ENGLISH (MARKER A)', labelB:'NO ENGLISH (MARKER B)', shots:5 }
         }
       ]
@@ -1364,6 +1395,7 @@ const CHAPTERS = [
             'If you miss position but make the ball, take half a point. If you miss the ball, stop that rack and start again.'
           ],
           review:'Zig-zag patterns appear constantly in Nine Ball. The player who can execute them in sequence while controlling shape has a huge advantage.',
+          diagram: `<img src="diagrams/d-zig-zag.jpg" alt="Zig Zag Drill diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'pointTracker', id:'d-zig-zag', maxPts:7, label:'ZIG ZAG SCORE' }
         },
         {
@@ -1376,6 +1408,7 @@ const CHAPTERS = [
             'Score 1 point per ball in the easy version. In the hard version, score only if you complete the full runout.'
           ],
           review:'The Special L is a final exam in position play. To A+ it, you must run the balls without hitting a rail on any position play. A witness required.',
+          diagram: `<img src="diagrams/d-special-l.jpg" alt="The Special L diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'pointTracker', id:'d-special-l', maxPts:8, label:'L DRILL SCORE' }
         },
         {
@@ -1390,6 +1423,7 @@ const CHAPTERS = [
             'Maximum score: 12 points (6 makes + 6 CB targets hit).'
           ],
           review:'This exercise brings together pocketing, position, and decision-making in a game-realistic format.',
+          diagram: `<img src="diagrams/d-pro-target.jpg" alt="Pro Target Ball diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'pointTracker', id:'d-pro-target', maxPts:12, label:'PRO TARGET SCORE' }
         }
       ]
@@ -1403,7 +1437,7 @@ const CHAPTERS = [
 {
   id:'ch06', num:6, title:'Pattern Play',
   subtitle:'Reading and running sequences of balls',
-  color:'gold', drillCount:16,
+  color:'gold', drillCount:9,
   sections:[
     {
       id:'s6-beginning', title:'BEGINNING PATTERN PLAY',
@@ -1421,6 +1455,7 @@ const CHAPTERS = [
             'Execute the plan. Note where position errors occurred.'
           ],
           review:'Programming is a thinking skill. The more layouts you analyze, the faster and more accurate your planning becomes.',
+          diagram: `<img src="diagrams/d-prog-a.jpg" alt="Programming A diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-prog-a', racks:5 }
         },
         {
@@ -1434,6 +1469,7 @@ const CHAPTERS = [
             'Execute the planned sequence. Record balls pocketed.'
           ],
           review:'Speed control is the key component. The other principles played supporting roles. Always rank the principles before shooting.',
+          diagram: `<img src="diagrams/d-prog-b.jpg" alt="Programming B diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-prog-b', racks:5 }
         }
       ]
@@ -1456,6 +1492,7 @@ const CHAPTERS = [
             'Repeat 5 times. Score = number of successful runouts.'
           ],
           review:'The easiest runout is: 6, 5, 3, 1, 8-ball. But the correct sequence for the layout given may be completely different.',
+          diagram: `<img src="diagrams/d-8ball-endgame.jpg" alt="Eight Ball End Game diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-8ball-endgame', racks:5 }
         },
         {
@@ -1470,6 +1507,7 @@ const CHAPTERS = [
             'Score 1 point per ball in the random version.'
           ],
           review:'When the OB is in the rectangular area covered by other balls, there is a good chance you are facing a difficult position play.',
+          diagram: `<img src="diagrams/d-balls-middle.jpg" alt="Balls in the Middle diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-balls-middle', racks:3 }
         }
       ]
@@ -1489,6 +1527,7 @@ const CHAPTERS = [
             'Track the best run per session. Goal: improve your average run over time.'
           ],
           review:'Like a skater doing a flawless routine, Doing the Cosmo means executing the simple shots flawlessly first, then building to the hard shots.',
+          diagram: `<img src="diagrams/d-doing-cosmo.jpg" alt="Doing the Cosmo diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-doing-cosmo', racks:5 }
         },
         {
@@ -1502,6 +1541,7 @@ const CHAPTERS = [
             'Use the scale: Last 3=C/C, Last 4=C+, Last 5=B-, Last 6=B, Last 7=B+, Last 8=A-, All 9=A/A+.'
           ],
           review:'A 640 Fargo should average Last 4-5 consistently. A 750 Fargo should average Last 6-7. This gives you a concrete target.',
+          diagram: `<img src="diagrams/d-runout-power.jpg" alt="Building Your Runout Power diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-runout-power', racks:5 }
         }
       ]
@@ -1521,6 +1561,7 @@ const CHAPTERS = [
             'Apply PEP to the layout in the diagram. Time yourself — how fast can you plan it?'
           ],
           review:'In the example: 8-ball goes to Pocket F. KB2 is the 2-ball. Start with the 1-ball to build the bridge.',
+          diagram: `<img src="diagrams/d-pep.jpg" alt="PEP Runout Planning diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-pep', racks:5 }
         },
         {
@@ -1533,6 +1574,7 @@ const CHAPTERS = [
             'In Diagram 3: the 6-ball is the Linking Ball. Use it to bridge the end of the second pattern to the final pattern.',
             'Apply this analysis to 5 live racks. Score: number of racks where you correctly identified all patterns before shooting.'
           ],
+          diagram: `<img src="diagrams/d-nine-patterns.jpg" alt="Nine Ball Patterns diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-nine-patterns', racks:5 }
         },
         {
@@ -1545,6 +1587,7 @@ const CHAPTERS = [
             'SUPER ADVANCED VERSION: An open rack of Eight Ball, balls at random. No english. Track runout length.'
           ],
           review:'Many shots that seem to require english can be played with pure vertical axis cueing and correct speed. This exercise reveals all of them.',
+          diagram: `<img src="diagrams/d-vertical-axis.jpg" alt="Vertical Axis Only diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'rackTracker', id:'d-vertical-axis', racks:3 }
         }
       ]
@@ -1588,6 +1631,7 @@ const CHAPTERS = [
             'Goal: CB comes to rest behind the cluster of balls at center table.',
             'Run 5 attempts from the positions shown.'
           ],
+          diagram: `<img src="diagrams/d-off-rail.jpg" alt="Off the Rail and Into Jail diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-off-rail', showPct:true, label:'SUCCESSFUL SAFETIES' }
         }
       ]
@@ -1607,6 +1651,7 @@ const CHAPTERS = [
             'Run 5 from each position. Track how many CB lands behind the 2-ball marker.'
           ],
           review:'The target ball is both a marker for aim and an indicator of success. If you hit the target on most attempts, you are already a skilled safety player.',
+          diagram: `<img src="diagrams/d-skimming.jpg" alt="Skimming the Cream diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissMulti', id:'d-skimming', groups:['PART A (SHORT)', 'PART B (LONGER)', 'PART C (PARALLEL)'], shots:5 }
         },
         {
@@ -1618,6 +1663,7 @@ const CHAPTERS = [
             'PART B: A slightly thicker hit where CB stops near the OB. OB rolls a short distance.',
             'In both cases, the goal is: opponent faces a difficult or impossible shot.'
           ],
+          diagram: `<img src="diagrams/d-thin-hit.jpg" alt="The Thin Hit Diversion diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-thin-hit', labelA:'PART A (ULTRA THIN)', labelB:'PART B (THIN+STOP)', shots:5 }
         },
         {
@@ -1630,6 +1676,7 @@ const CHAPTERS = [
             'Score: 1 point per successful OB placement, 1 point per CB in good defensive position.'
           ],
           review:'The ability to move specific balls to specific locations on safeties is a particularly valuable skill in Eight Ball.',
+          diagram: `<img src="diagrams/d-chess-pieces.jpg" alt="Moving the Chess Pieces diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissMulti', id:'d-chess-pieces', groups:['PART A (CROSSOVER)', 'PART B (TARGET BANK)'], shots:5 }
         },
         {
@@ -1642,6 +1689,7 @@ const CHAPTERS = [
             'Common targets: frozen to end rail, frozen to side rail, in a cluster, behind the 8-ball.',
             'Track success rate across 5 attempts per scenario.'
           ],
+          diagram: `<img src="diagrams/d-ob-distance.jpg" alt="Object Ball Distance Control diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-ob-distance', showPct:true, label:'OB IN TARGET ZONE' }
         }
       ]
@@ -1659,6 +1707,7 @@ const CHAPTERS = [
             'PART B — HOOK: CB travels around an obstacle ball and comes to rest behind it, leaving no legal shot for opponent.',
             'Run 5 attempts each. Score: number where opponent would truly have no shot.'
           ],
+          diagram: `<img src="diagrams/d-float-hook.jpg" alt="Float and Hook diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-float-hook', labelA:'FLOAT', labelB:'HOOK', shots:5 }
         },
         {
@@ -1672,6 +1721,7 @@ const CHAPTERS = [
             'Run 5 attempts. Score: number where OB actually splits the atom.'
           ],
           review:'This shot requires exceptional thin-hit precision. Start with a wider gap and gradually reduce it as your skill improves.',
+          diagram: `<img src="diagrams/d-split-atom.jpg" alt="Split the Atom diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-split-atom', showPct:true, label:'ATOM SPLITS' }
         }
       ]
@@ -1723,6 +1773,7 @@ const CHAPTERS = [
             'Note how much the rebound angle changed.',
             'Practice from all 5 positions shown (A-E at 30°, 40°, 45°, 50°, 60°). Running english allows you to make kicks you cannot make with center ball.'
           ],
+          diagram: `<img src="diagrams/d-english-pickup.jpg" alt="English Pick Up diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissMulti', id:'d-english-pickup', groups:['30°','45°','60°'], shots:5 }
         }
       ]
@@ -1742,6 +1793,7 @@ const CHAPTERS = [
             'Practice from 3 positions. Track how many successful kicks (contact the OB).'
           ],
           review:'Reversing the CB\'s direction with inside english is a necessary skill for kick shots near corner pockets.',
+          diagram: `<img src="diagrams/d-corner-gap.jpg" alt="The Corner Pocket Gap diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-corner-gap', showPct:true, label:'CONTACT KICKS' }
         },
         {
@@ -1752,6 +1804,7 @@ const CHAPTERS = [
             'PART A: OB close to rail. Use Medium Hard stroke, half tip of follow from CB positions A, B, and C. CB should stop near dead after OB contact, or head to opposite end.',
             'PART B: Two-rail kick. OB near rail, go two rails to hit it from the back side. CB will stop after contact because OB absorbs most energy.'
           ],
+          diagram: `<img src="diagrams/d-stick-hook.jpg" alt="Stick and Hook diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-stick-hook', labelA:'PART A (RAIL KICK)', labelB:'PART B (2-RAIL)', shots:5 }
         },
         {
@@ -1766,6 +1819,7 @@ const CHAPTERS = [
             'Advanced: Try 3 consecutive rounds and track total score (max 24).'
           ],
           review:'The kick shot to the 8-ball is one of the most troublesome shots in Nine Ball. Mastering it is a significant advantage.',
+          diagram: `<img src="diagrams/d-treadmill.jpg" alt="The Treadmill diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'pointTracker', id:'d-treadmill', maxPts:8, label:'TREADMILL SCORE' }
         },
         {
@@ -1779,6 +1833,7 @@ const CHAPTERS = [
             'Case 3: OB in traffic. Kick to hit it and avoid leaving position for opponent.',
             'Rate each kick: 1=Missed OB, 2=Hit OB but left easy shot, 3=Hit OB and left safe.'
           ],
+          diagram: `<img src="diagrams/d-real-kicks.jpg" alt="Real World Kick Shots diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'qual', id:'d-real-kicks', labels:{ 1:'MISSED OB', 2:'HIT OB/LEFT EASY', 3:'HIT OB/LEFT SAFE' } }
         }
       ]
@@ -1822,6 +1877,7 @@ const CHAPTERS = [
             'If CB stops short of head rail, you hit too softly. If CB goes past and into traffic, too hard.'
           ],
           review:'Speed of Stroke Study: Most Straight Pool breaks are played at Speed 6 (Medium Hard) — 40% of the time. Hard (7) = 20%. Medium (5) = 20%.',
+          diagram: `<img src="diagrams/d-sp-break.jpg" alt="Straight Pool Break diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-sp-break', showPct:true, label:'BREAK TO SAFE ZONE' }
         }
       ]
@@ -1860,7 +1916,36 @@ const CHAPTERS = [
             'Goal: CB ends up somewhere in the center third of the table — not scratching, not hiding behind balls.',
             'Allow for deflection by aiming slightly fuller on the hit.'
           ],
+          diagram: `<img src="diagrams/d-follow-back-out.jpg" alt="Follow Back Out diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMiss', id:'d-follow-back-out', showPct:true, label:'CB TO CENTER TABLE' }
+        },
+        {
+          id:'d-eight-break', name:'EIGHT BALL BREAK SHOT', accent:'cyan', tags:['BREAK','EIGHT BALL'],
+          cure:'Eight Ball break strategy is different from Nine Ball — the goal is to make a ball and control the CB, not just scatter.',
+          objective:'Develop a consistent Eight Ball break with reliable CB control.',
+          steps:[
+            'POSITION A: Break from just inside the side rail. Hit the 1-ball full, Hard (7) or harder. Goal: make a corner ball.',
+            'POSITION B: Break from slightly inside of head string center. Softer hit but more control.',
+            'In both cases: CB should rebound to near center table. Avoid table length scratches.',
+            'Run 5 breaks from each position. Track: balls made, CB ending position, scratches.'
+          ],
+          review:'An Eight Ball break that scatters all balls but ends up in a terrible CB position is worse than a controlled break that makes only one ball.',
+          diagram: `<img src="diagrams/d-eight-break.jpg" alt="Eight Ball Break Shot diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
+          scoring:{ type:'hitMissAB', id:'d-eight-break', labelA:'POSITION A', labelB:'POSITION B', shots:5 }
+        },
+        {
+          id:'d-break-power', name:'DEVELOPING BREAK POWER', accent:'gold', tags:['BREAK','POWER'],
+          cure:'Break power comes from transferring body weight into the shot — not from arm strength alone.',
+          objective:'Build and measure your break power using the speed-of-scatter metric.',
+          steps:[
+            'Break from center of the head string. Hard (7-8) stroke.',
+            'POWER INDICATORS: Corner balls reaching the rails = good power. 1-ball bouncing back past the head string = great power.',
+            'POWER BUILDING: Work on weight transfer. Plant your back foot. Drive your hips forward as you swing.',
+            'Run 5 breaks. Count: how many times does the 1-ball clear the third diamond?',
+            'Build up over several sessions. Never sacrifice accuracy for raw power.'
+          ],
+          review:'For a 640 Fargo, break power is less important than break consistency. Master accuracy first, then gradually build power.',
+          scoring:{ type:'hitMiss', id:'d-break-power', showPct:true, label:'POWERFUL BREAKS' }
         },
         {
           id:'d-1pocket-break', name:'1-POCKET BREAK SHOT', accent:'red', tags:['BREAK','1-POCKET'],
@@ -1874,7 +1959,55 @@ const CHAPTERS = [
             'Run 5 breaks from each preferred side.'
           ],
           review:'The 1-Pocket break is worth significant practice time because every player in 1-Pocket has a break responsibility.',
+          diagram: `<img src="diagrams/d-1pocket-break.jpg" alt="1-Pocket Break Shot diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
           scoring:{ type:'hitMissAB', id:'d-1pocket-break', labelA:'LEFT SIDE', labelB:'RIGHT SIDE', shots:5 }
+        }
+      ]
+    },
+    {
+      id:'s9-consistency', title:'BREAK CONSISTENCY',
+      desc:'Repeating the break with the same setup and execution every time.',
+      drills:[
+        {
+          id:'d-break-setup', name:'BREAK SHOT SETUP ROUTINE', accent:'cyan', tags:['BREAK','ROUTINE'],
+          cure:'Inconsistent break results are usually caused by inconsistent setup — different position, different grip, different approach.',
+          objective:'Develop and follow a specific pre-break routine to maximize consistency.',
+          steps:[
+            'STEP 1: Choose your exact break position (rail, half diamond, center). Always place CB in the same spot.',
+            'STEP 2: Walk into the shot from the same angle every time.',
+            'STEP 3: Use the same stance width, same grip pressure, same backswing length.',
+            'STEP 4: Before breaking, take one slow warm-up stroke to feel the stroke.',
+            'Run 5 breaks following the routine strictly. Compare scatter patterns to 5 breaks without the routine.'
+          ],
+          review:'Professional players break from the same exact spot within an inch every time. This consistency is trained, not innate.',
+          scoring:{ type:'qual', id:'d-break-setup', labels:{ 1:'DIFFERENT EVERY TIME', 2:'MOSTLY CONSISTENT', 3:'EXACT SAME ROUTINE' } }
+        },
+        {
+          id:'d-break-cb-zone', name:'CB ZONE AFTER BREAK', accent:'gold', tags:['BREAK','CB CONTROL'],
+          cure:'The most common break mistake: the CB ends up in a terrible position with no clear shot.',
+          objective:'Consistently land the CB within a defined zone after the break.',
+          steps:[
+            'Define 3 target zones: A (center table), B (left of center), C (near head rail).',
+            'Before each break: declare your target zone.',
+            'Run 5 breaks per zone. Score: how many times does CB land in declared zone?',
+            'For Nine Ball: Zone A is ideal — away from the rack area, near the 1-ball.'
+          ],
+          review:'Controlling the CB on the break is a skill entirely separate from power. Many top players sacrifice 15% power for 50% more CB control.',
+          diagram: `<img src="diagrams/d-break-cb-zone.jpg" alt="CB Zone After Break diagram" style="width:100%;border-radius:8px;margin-top:8px">`,
+          scoring:{ type:'hitMissMulti', id:'d-break-cb-zone', groups:['ZONE A (CENTER)', 'ZONE B (LEFT)', 'ZONE C (HEAD RAIL)'], shots:5 }
+        },
+        {
+          id:'d-break-analysis', name:'BREAK SHOT SELF-ANALYSIS', accent:'red', tags:['BREAK','ANALYSIS'],
+          cure:'Without measuring break results, you cannot know whether you are improving.',
+          objective:'Establish your break statistics baseline and set improvement targets.',
+          steps:[
+            'Run 10 Nine Ball breaks. Record for each: balls made, CB ending quadrant (1-4), scratch (yes/no).',
+            'CALCULATE: Balls made per break, scratch %, CB in center table %.',
+            'TARGETS for a 640 Fargo: 0.8+ balls per break, <10% scratch, 50%+ CB center table.',
+            'Run this analysis once per month to track progress.'
+          ],
+          review:'Most players dramatically overestimate the quality of their break. Honest statistics are the foundation of targeted improvement.',
+          scoring:{ type:'checklist', id:'d-break-analysis', items:['Ran 10 breaks with ball-count tracking','Calculated balls-per-break average','Calculated scratch percentage','Calculated CB-center-table percentage','Set 30-day improvement target'] }
         }
       ]
     }
@@ -1887,7 +2020,7 @@ const CHAPTERS = [
 {
   id:'ch10', num:10, title:'Scoring Games',
   subtitle:'Games that measure your improvement objectively',
-  color:'cyan', drillCount:12,
+  color:'cyan', drillCount:11,
   sections:[
     {
       id:'s10-ghost', title:'PLAY THE GHOST',
@@ -1977,6 +2110,36 @@ const CHAPTERS = [
           scoring:{ type:'pointTracker', id:'d-straight-pool', maxPts:150, label:'HIGH RUN' }
         },
         {
+          id:'d-nine-ball-score', name:'NINE BALL SCORE TRACKER', accent:'cyan', tags:['NINE BALL','SCORING'],
+          cure:'Tracking your Nine Ball scores over time is the simplest way to see real improvement.',
+          objective:'Establish a personal Nine Ball performance baseline using a consistent scoring method.',
+          steps:[
+            'Play 10 racks of Nine Ball solo. Use the Ghost Ball rules — run out or the Ghost wins.',
+            'TRACK PER RACK: Total balls made, balls run before first miss, scratches, rack won/lost.',
+            'CALCULATE: Average balls made per rack (out of 9), win % against the Ghost.',
+            'Baseline for 640 Fargo: 4-5 balls made per rack, 20-30% win rate vs. Ghost.',
+            'Run this monthly to track improvement over time.'
+          ],
+          review:'The balls-made metric is more forgiving than win% and shows improvement before win% moves. Track both.',
+          scoring:{ type:'pointTracker', id:'d-nine-ball-score', maxPts:9, label:'BALLS MADE PER RACK' }
+        },
+        {
+          id:'d-rotation', name:'ROTATION', accent:'gold', tags:['ROTATION','GAME'],
+          cure:'Rotation forces you to think about shot selection and pattern play in a way that Eight Ball and Nine Ball do not.',
+          objective:'Play Rotation to sharpen ball selection, sequencing, and position play under scoring pressure.',
+          setup:'Rack all 15 balls in triangle formation. Players must hit the lowest-numbered ball on the table first. Pocketing any ball scores its number value. First to 61 points wins.',
+          steps:[
+            'Rack all 15 balls. Break.',
+            'Each player must hit the lowest-numbered ball on the table first.',
+            'Any ball pocketed on a legal shot scores its number value.',
+            'Safety play is critical — if you cannot score, play safe and leave opponent in trouble.',
+            'First player to 61 (out of 120 total) wins.',
+            'Solo version: Play until you miss. Track highest score reached.'
+          ],
+          review:'Rotation rewards the same skills as Nine Ball but adds the complication of ball-value strategy — sometimes it pays to leave a high-value ball for later.',
+          scoring:{ type:'pointTracker', id:'d-rotation', maxPts:61, label:'ROTATION SCORE' }
+        },
+        {
           id:'d-backgammon-8ball', name:'BACKGAMMON EIGHT BALL', accent:'red', tags:['EIGHT BALL','GAME'],
           cure:'A scoring game that rewards both runout ability and safety play.',
           objective:'Play Backgammon Eight Ball and track your score improvement.',
@@ -1988,6 +2151,58 @@ const CHAPTERS = [
           ],
           review:'Backgammon scoring rewards dominant wins and penalizes safe-but-slow play. Track your average score per rack over time.',
           scoring:{ type:'pointTracker', id:'d-backgammon-8ball', maxPts:7, label:'BACKGAMMON SCORE' }
+        }
+      ]
+    },
+    {
+      id:'s10-solo-tracking', title:'PERFORMANCE TRACKING',
+      desc:'Objective measurements that track your game improvement over time.',
+      drills:[
+        {
+          id:'d-bowlliards', name:'BOWLLIARDS', accent:'cyan', tags:['BOWLLIARDS','GAME','SCORING'],
+          cure:'Bowlliards is the perfect solo scoring game — it gives you a number that directly correlates to your overall skill level.',
+          objective:'Play Bowlliards and track your score as a measure of overall game improvement.',
+          setup:'Bowlliards combines bowling scoring with pool: 10 frames, 2 shots per frame. Place 1 ball per frame at the foot spot. Pocket it with CB in hand to score a "strike." If you miss, shoot from wherever the CB is for 2nd attempt.',
+          steps:[
+            'FRAME SETUP: Place 1 object ball at the foot spot. CB anywhere on the table.',
+            'STRIKE: Pocket the ball in 1 shot = strike (10 points).',
+            'SPARE: Miss on 1st shot, pocket on 2nd shot = spare.',
+            'MISS: Miss both = score 0 for that frame.',
+            'Scoring exactly like bowling: strikes and spares carry over.',
+            'Perfect game = 300. Average for a 640 Fargo = 120-160.'
+          ],
+          review:'Bowlliards is the most portable and reliable solo skill test in pool. Play it at any table, track your score session to session.',
+          scoring:{ type:'pointTracker', id:'d-bowlliards', maxPts:300, label:'BOWLLIARDS SCORE' }
+        },
+        {
+          id:'d-61-game', name:'61 SOLO GAME', accent:'gold', tags:['SCORING','SOLO'],
+          cure:'The 61 game gives you a score from 0-61 for each session. When it consistently goes up, you are improving.',
+          objective:'Play 61 solo and track your session score over time.',
+          setup:'Rack 15 balls. Break. Run balls in any order. Each ball scored adds its value to your running total. If you miss, you can continue from where CB stops but lose 5 points. Stop when you scratch or reach 61.',
+          steps:[
+            'Rack 15. Break.',
+            'Score: add the number value of each ball pocketed.',
+            'Miss penalty: -5 points. Continue from current CB position.',
+            'Scratch: session ends immediately.',
+            'Target for 640 Fargo: average score 30-45 per session.',
+            'Track 5 sessions and average your score.'
+          ],
+          review:'The miss penalty creates pressure and forces conservative shot selection — exactly like real competition.',
+          scoring:{ type:'pointTracker', id:'d-61-game', maxPts:61, label:'61 GAME SCORE' }
+        },
+        {
+          id:'d-fargo-tracker', name:'FARGO PRACTICE TRACKER', accent:'red', tags:['FARGO','TRACKING','SELF-ASSESSMENT'],
+          cure:'Most players have no idea if their Fargo is going up or down during a training block.',
+          objective:'Track practice outcomes in a structured way to correlate practice with Fargo movement.',
+          steps:[
+            'After each session: record 3 metrics — Primary drill hit%, Ghost Ball win%, High run (if applicable).',
+            'Rate the session: Did fundamentals feel solid (1-3)?',
+            'At end of month: check if any of your three metrics improved by 5%+.',
+            'If no metric improved in 4 weeks: change your practice focus.',
+            'If one metric improved significantly: that was your limiting factor — keep working on it.'
+          ],
+          review:'The Fargo rating follows real game performance, not practice metrics. But improving practice metrics consistently will eventually move your Fargo.',
+          scoring:{ type:'checklist', id:'d-fargo-tracker', items:['Recorded hit % for primary drill','Recorded Ghost Ball win %','Rated session quality (1-3)','Compared to last session metrics','Identified primary focus for next session'] }
         }
       ]
     }
@@ -2034,6 +2249,33 @@ const CHAPTERS = [
           scoring:{ type:'rackTracker', id:'d-two-stop', racks:5 }
         },
         {
+          id:'d-alternate-shots', name:'ALTERNATE SHOT NINE BALL', accent:'cyan', tags:['PARTNER','GAME'],
+          cure:'Alternate shots forces both players to think about position for someone else — an underutilized skill in pool.',
+          objective:'Play Alternate Shot Nine Ball (Scotch Doubles format) with a partner to improve partner communication and position play.',
+          steps:[
+            'Partners alternate shots on every ball — Player A shoots ball 1, Player B shoots ball 2, etc.',
+            'At the start of each ball, the shooting player has no choice — they shoot whatever the partner left.',
+            'Discuss BEFORE each shot: where should CB end up? What does the partner need?',
+            'If player A plays position poorly, player B suffers. Communication is key.',
+            'Play 5 racks. Track: racks run vs. racks lost on missed position.'
+          ],
+          review:'Alternate shot reveals your position play quality immediately. When your partner struggles with what you left them, the lesson is unforgettable.',
+          scoring:{ type:'rackTracker', id:'d-alternate-shots', racks:5 }
+        },
+        {
+          id:'d-ghost-partner', name:'GHOST BALL PARTNER CHALLENGE', accent:'gold', tags:['PARTNER','GHOST BALL'],
+          cure:'Competing against a partner in Ghost Ball adds real pressure without ego-damaging head-to-head play.',
+          objective:'Both players play the Ghost simultaneously. Highest win rate wins the session.',
+          steps:[
+            'Both players each play 5 racks of Nine Ball vs. the Ghost at the same time (separate tables) or alternating turns.',
+            'Track win/loss for each player.',
+            'At end: compare records. Loser chooses the next drill.',
+            'Optional: Loser owes winner a specific number of warm-up shots or a drill attempt.'
+          ],
+          review:'Adding competitive stakes (even small ones) to Ghost Ball practice significantly increases pressure and learning value.',
+          scoring:{ type:'hitMissAB', id:'d-ghost-partner', labelA:'PLAYER A WINS', labelB:'PLAYER B WINS', shots:5 }
+        },
+        {
           id:'d-better-player', name:'BETTER PLAYER vs. WEAKER PLAYER', accent:'red', tags:['PARTNER','CHALLENGE'],
           cure:'Challenge games force the stronger player to practice consistency and the weaker player to compete harder.',
           objective:'Use handicap games to challenge both players appropriately.',
@@ -2045,6 +2287,55 @@ const CHAPTERS = [
           ],
           review:'Games where both players win 50% of the time provide the maximum learning for both. Too easy = boredom. Too hard = frustration.',
           scoring:{ type:'qual', id:'d-better-player', labels:{ 1:'HANDICAP TOO EASY', 2:'COMPETITIVE', 3:'HANDICAP TOO HARD' } }
+        }
+      ]
+    },
+    {
+      id:'s11-analysis', title:'PARTNER ANALYSIS DRILLS',
+      desc:'Using a partner to identify and correct specific weaknesses.',
+      drills:[
+        {
+          id:'d-mirror-drill', name:'THE MIRROR DRILL', accent:'cyan', tags:['PARTNER','FUNDAMENTALS'],
+          cure:'Watching yourself in a mirror reveals posture and alignment errors you cannot feel. A partner serves the same function.',
+          objective:'Use a partner as a "mirror" to identify and correct fundamental errors.',
+          steps:[
+            'Partner stands at the end of the table and watches your setup from behind.',
+            'OBSERVER CHECKS: Is the cue level? Is the head directly over the cue? Is the shooting arm in a straight line?',
+            'Shoot 5 straight-in shots. Partner calls out any deviation they observe.',
+            'Switch roles. Observer now becomes shooter.',
+            'After both rounds: each player names one specific thing they will fix.'
+          ],
+          review:'An external observer catches errors the shooter is completely unaware of. This is why top players value coaching so highly — you cannot see what you cannot see.',
+          scoring:{ type:'checklist', id:'d-mirror-drill', items:['Partner observed my setup from behind','Partner identified at least 1 error','I observed partner\'s setup','I gave specific, actionable feedback','Both players named 1 correction to make'] }
+        },
+        {
+          id:'d-lesson-session', name:'STRUCTURED LESSON SESSION', accent:'gold', tags:['PARTNER','COACHING'],
+          cure:'Unstructured partner play rarely produces targeted improvement. A structured lesson format multiplies the value.',
+          objective:'Run a 30-minute structured lesson session where each player is both coach and student.',
+          steps:[
+            'FIRST 15 MINUTES — Player A coaches Player B:',
+            'B names one skill they want to improve. A watches B shoot 10 balls focusing on that skill.',
+            'A gives 1-2 specific corrections. B implements them for 5 more shots.',
+            'SECOND 15 MINUTES: Reverse roles. B coaches A.',
+            'End with 5 minutes of head-to-head competition to test what was learned under pressure.'
+          ],
+          review:'The coaching role is valuable for both players. Teaching reinforces your own understanding of technique.',
+          scoring:{ type:'checklist', id:'d-lesson-session', items:['Named specific skill to work on (as student)','Received at least 1 specific correction','Applied correction for 5+ shots','Gave specific coaching feedback (as coach)','Tested improvement under competition pressure'] }
+        },
+        {
+          id:'d-safety-battle', name:'SAFETY BATTLE', accent:'red', tags:['PARTNER','SAFETY'],
+          cure:'Safeties only develop under competitive pressure. Most players avoid practicing them — this drill forces it.',
+          objective:'Play a pure safety game to develop defensive strategy and execution.',
+          setup:'Place 1 object ball anywhere on the table. Players alternate playing safeties — no pocketing allowed. First player to leave the opponent with a makeable shot (no snooker) loses the point.',
+          steps:[
+            'Set up 1 object ball. Both players agree on the "legal" position — CB must be within 2 diamonds of the OB.',
+            'Players alternate playing safeties. Goal: leave opponent with no shot.',
+            'If opponent has any clear shot: you lose that round (1 point to them).',
+            'Play 10 rounds. Track points won.',
+            'Add a second OB for a harder version: now both balls must be placed safely.'
+          ],
+          review:'Safety Battle teaches you to think like a defensive player — always asking "what can opponent do from here?" before committing to a safety.',
+          scoring:{ type:'pointTracker', id:'d-safety-battle', maxPts:10, label:'SAFETY BATTLE SCORE' }
         }
       ]
     }
@@ -2100,6 +2391,54 @@ const CHAPTERS = [
             'Rotate pairs. Everyone plays everyone at least once per session.'
           ],
           scoring:{ type:'qual', id:'d-pair-compete', labels:{ 1:'TOO CASUAL', 2:'COMPETITIVE', 3:'MATCH INTENSITY' } }
+        }
+      ]
+    },
+    {
+      id:'s12-skill-games', title:'TEAM SKILL GAMES',
+      desc:'Competitive team drills that build skills while generating friendly competition.',
+      drills:[
+        {
+          id:'d-team-ghost', name:'TEAM GHOST BALL CHALLENGE', accent:'cyan', tags:['TEAM','GHOST BALL'],
+          cure:'Playing Ghost Ball as a team creates group accountability and friendly competition in a low-pressure format.',
+          objective:'All team members play Ghost Ball Nine Ball. Highest collective win rate earns the team a point.',
+          steps:[
+            'Each team member plays 3 racks of Nine Ball vs. the Ghost. Total: 3 racks × team size.',
+            'TEAM WIN: If collective win rate exceeds 50%, team wins the round.',
+            'INDIVIDUAL CHALLENGE: After team play, best player plays 3 more racks — their score sets the "target" for next session.',
+            'Track team win % over 4 weeks to measure group improvement.',
+            'Losing players buy the winners their next practice table time.'
+          ],
+          review:'Group accountability is a powerful motivator. When everyone\'s performance contributes to a shared result, effort increases naturally.',
+          scoring:{ type:'rackTracker', id:'d-team-ghost', racks:3 }
+        },
+        {
+          id:'d-team-skill-challenge', name:'TEAM SKILL CHALLENGE', accent:'gold', tags:['TEAM','SKILLS'],
+          cure:'Skill challenges reveal the specific areas where the team is weakest — and make fixing them fun.',
+          objective:'Run a series of mini skill contests to identify and address team weaknesses.',
+          steps:[
+            'ROUND 1 — STOP SHOTS: Each player shoots 5 stop shots from 4 feet. Score: clean stops.',
+            'ROUND 2 — SAFETY PLAY: Each player plays 3 safeties against a set position. Score: safeties that leave no shot.',
+            'ROUND 3 — POSITION: Each player plays 1 position drill. Score: CB lands in zone.',
+            'TEAM TOTALS: Add all scores. Weakest category becomes the focus for next practice.',
+            'Run this assessment monthly to track team progress.'
+          ],
+          review:'Identifying the team\'s weakest skill area and drilling it together is the fastest path to overall team improvement.',
+          scoring:{ type:'checklist', id:'d-team-skill-challenge', items:['Round 1 (Stop Shots) completed','Round 2 (Safeties) completed','Round 3 (Position) completed','Team scores tallied','Weakest category identified for next session'] }
+        },
+        {
+          id:'d-team-tournament', name:'INTRA-TEAM TOURNAMENT', accent:'red', tags:['TEAM','TOURNAMENT'],
+          cure:'Internal tournaments create the competitive pressure of real matches in a safe, low-stakes environment.',
+          objective:'Run a short round-robin tournament within the team to simulate match pressure.',
+          steps:[
+            'Format: Round-robin, single games. Standard format (Eight Ball or Nine Ball as team prefers).',
+            'All match results posted on a visible scorecard.',
+            'After each match: loser gives winner one specific compliment on their game.',
+            'At end: team discusses what the top finisher did better than others.',
+            'Run this once per month. Track how rankings change over time.'
+          ],
+          review:'The most valuable moment is the post-match discussion — understanding what the winner did better is worth more than the game itself.',
+          scoring:{ type:'rackTracker', id:'d-team-tournament', racks:5 }
         }
       ]
     }
@@ -2172,6 +2511,62 @@ const CHAPTERS = [
             'Run 3 sessions using these methods. Rate how well you maintained performance under pressure.'
           ],
           scoring:{ type:'qual', id:'d-pressure-prep', labels:{ 1:'PRESSURE CAUSED DECLINE', 2:'SLIGHT PERFORMANCE DROP', 3:'SAME UNDER PRESSURE' } }
+        },
+        {
+          id:'d-pre-shot-ritual', name:'THE PRE-SHOT RITUAL', accent:'gold', tags:['MENTAL','ROUTINE'],
+          cure:'A consistent pre-shot routine is the single greatest performance stabilizer under pressure. Without one, nerves take over.',
+          objective:'Design, internalize, and automate your complete pre-shot ritual.',
+          steps:[
+            'DESIGN: Write down each step of your pre-shot routine. It should include: 1) Decision phase (which shot, where CB goes), 2) Setup phase (approach, stance), 3) Execution phase (warm-up strokes, GO signal).',
+            'CALIBRATE: Play 10 balls. After each shot, ask: Did I follow my full routine?',
+            'TARGET: 100% routine adherence for all 10 balls. If you miss 1, start the count over.',
+            'Perform this exercise once per week until the routine is truly automatic.',
+            'UNDER PRESSURE TEST: Play 5 racks of Ghost Ball. Focus only on routine — not results.'
+          ],
+          review:'The routine is a ritual, not a mechanical checklist. When it feels natural and complete, you are ready for competition.',
+          scoring:{ type:'qual', id:'d-pre-shot-ritual', labels:{ 1:'STILL INCONSISTENT', 2:'FOLLOWING MOST STEPS', 3:'FULLY AUTOMATIC' } }
+        },
+        {
+          id:'d-focus-training', name:'FOCUS TRAINING', accent:'red', tags:['MENTAL','CONCENTRATION'],
+          cure:'Pool is a game of singular focus on each shot. The player who can eliminate distractions for 2-3 seconds per shot has a decisive advantage.',
+          objective:'Train your ability to enter and sustain deep focus during each shot.',
+          steps:[
+            'FOCUS CUE: Choose a trigger word or action that signals "deep focus mode" (e.g., "see the ghost ball" or tapping the cue on the cloth).',
+            'PRACTICE: Before each shot, use your focus cue. Hold your full attention on the ghost ball for 3 full seconds.',
+            'DISTRACTION DRILL: Play 5 shots with music and conversation in the room. Maintain focus rating.',
+            'RATE EACH SHOT: 1 = distracted, 2 = partial focus, 3 = locked in.',
+            'Session goal: 80% of shots rated 3.'
+          ],
+          review:'Focus is a muscle. It gets stronger with deliberate training. Most B-level players focus for 0.5 seconds. Elite players focus for 3-5 seconds per shot.',
+          scoring:{ type:'qual', id:'d-focus-training', labels:{ 1:'DISTRACTED (UNDER 0.5 SEC)', 2:'PARTIAL (1-2 SEC)', 3:'LOCKED IN (3+ SEC)' } }
+        },
+        {
+          id:'d-positive-self-talk', name:'POSITIVE SELF-TALK', accent:'cyan', tags:['MENTAL','ATTITUDE'],
+          cure:'Negative self-talk after misses compounds errors. The inner voice of a champion is constructive, not critical.',
+          objective:'Replace destructive self-criticism with constructive internal feedback.',
+          steps:[
+            'AWARENESS PHASE: For one full session, notice every negative thought after a miss. Write them down.',
+            'REPLACEMENT PHASE: For each negative thought pattern you identified, write the constructive replacement.',
+            'EXAMPLES: "I always miss this shot" → "I will see the ghost ball more clearly next time." "That was terrible" → "That was useful data."',
+            'IMPLEMENTATION: Next session, catch each negative thought and replace it in real time.',
+            'TRACK: Rate your internal voice quality each session (1-3).'
+          ],
+          review:'Champions are not born with positive self-talk — they develop it the same way they develop a stroke. Deliberate practice, consistent replacement.',
+          scoring:{ type:'qual', id:'d-positive-self-talk', labels:{ 1:'MOSTLY CRITICAL', 2:'NEUTRAL MIXED', 3:'CONSISTENTLY CONSTRUCTIVE' } }
+        },
+        {
+          id:'d-table-talk', name:'TABLE TALK — INTERNAL DIALOGUE', accent:'gold', tags:['MENTAL','FOCUS'],
+          cure:'The running commentary in your head during a game is either helping or hurting your game. Almost never neutral.',
+          objective:'Develop a productive internal dialogue pattern for both making shots and recovering from misses.',
+          steps:[
+            'BEFORE THE SHOT: "Where is the ghost ball? Where do I want the CB? What speed?"',
+            'DURING THE SHOT: "See the ghost ball. Smooth stroke. Follow through."',
+            'AFTER A MAKE: "Good. Now where is the CB?" (stay in execution mode)',
+            'AFTER A MISS: "What happened? Is it an L skill or P skill issue? What do I fix next time?"',
+            'PRACTICE: Play 5 racks narrating your table talk aloud. Notice when the dialogue becomes negative or absent.'
+          ],
+          review:'The missing internal dialogue ("blank mind") is just as damaging as negative self-talk. Filling the blank with the right questions is the skill.',
+          scoring:{ type:'qual', id:'d-table-talk', labels:{ 1:'BLANK OR NEGATIVE', 2:'SOMETIMES HELPFUL', 3:'CONSISTENTLY PRODUCTIVE' } }
         }
       ]
     }
