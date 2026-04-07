@@ -4727,7 +4727,7 @@ function showChapterList() {
 ────────────────────────────────────────── */
 async function refreshProgress() {
   const profile = await getProfile();
-  const fargo = profile.fargo || 640;
+  const fargo = profile.fargo || 550;
   const goal = profile.fargoGoal || 750;
   const pct = Math.max(0, Math.min(100, ((fargo - 400) / (goal - 400)) * 100));
 
@@ -4795,7 +4795,7 @@ async function saveSettings() {
     cloth: document.getElementById('sf-cloth')?.value,
     cue: document.getElementById('sf-cue')?.value,
     shaft: document.getElementById('sf-shaft')?.value,
-    fargo: parseInt(document.getElementById('sf-fargo')?.value) || 640,
+    fargo: parseInt(document.getElementById('sf-fargo')?.value) || 550,
     fargoGoal: parseInt(document.getElementById('sf-fargoGoal')?.value) || 750,
     hand: document.getElementById('sf-hand')?.value,
     bridge: document.getElementById('sf-bridge')?.value,
@@ -5218,7 +5218,7 @@ async function buildDailyPlan(minutes) {
   allHistory.forEach(h => { histMap[h.id] = h; });
 
   const profileRaw = localStorage.getItem('fgp-profile');
-  const fargo = profileRaw ? (JSON.parse(profileRaw).fargo || 640) : 640;
+  const fargo = profileRaw ? (JSON.parse(profileRaw).fargo || 550) : 640;
 
   const now = Date.now();
   const candidates = [];
@@ -5873,7 +5873,7 @@ async function boot() {
     const sbCur  = document.getElementById('sbFargoCur');
     const sbGoal = document.getElementById('sbFargoGoal');
     const sbFill = document.getElementById('sbFargoFill');
-    const fargo  = profile.fargo || 640;
+    const fargo  = profile.fargo || 550;
     const goal   = profile.fargoGoal || 750;
     const pct    = Math.max(0, Math.min(100, ((fargo - 400) / (goal - 400)) * 100));
     if (sbCur)  sbCur.textContent = fargo;
