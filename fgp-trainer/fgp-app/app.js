@@ -4835,6 +4835,7 @@ async function refreshProgress() {
   }
 
   refreshProgressRatings();
+  renderCalendarHeatmap();
   renderWeakAreaReport();
 }
 
@@ -4992,15 +4993,39 @@ async function exportCSV() {
 }
 
 async function exportData() {
-  const [scores, sessions, ratings] = await Promise.all([
-    dbGetAll('scores'), dbGetAll('sessions'), dbGetAll('ratings'), dbGetAll('history'), dbGetAll('notes'), dbGetAll('bookmarks')
+  const [scores, sessions, ratings, history, notes, bookmarks] = await Promise.all([
+    dbGetAll('scores'), dbGetAll('sessions'), dbGetAll('ratings'),
+    dbGetAll('history'), dbGetAll('notes'), dbGetAll('bookmarks')
   ]);
-  const data = { exportDate: new Date().toISOString(), scores, sessions, ratings };
+  const profile = await getProfile();
+  const data = { exportDate: new Date().toISOString(), version: 2, profile, scores, sessions, ratings, history, notes, bookmarks };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = 'fgp-training-export.json'; a.click();
+  a.href = url;
+  a.download = `fgp-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
   URL.revokeObjectURL(url);
+}
+
+async function importData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if (!confirm(`Restore backup from ${data.exportDate?.slice(0,10) || 'unknown date'}?\nThis merges over current data.`)) return;
+    const stores = ['scores','sessions','ratings','history','notes','bookmarks'];
+    for (const store of stores) {
+      if (!Array.isArray(data[store])) continue;
+      for (const item of data[store]) await dbPut(store, item);
+    }
+    if (data.profile) await saveProfile(data.profile);
+    alert('Backup restored. Reload to see updated data.');
+    location.reload();
+  } catch(e) {
+    alert('Failed to restore: ' + e.message);
+  }
 }
 
 async function clearData() {
@@ -5479,6 +5504,63 @@ async function loadSparklines(drills) {
     el.innerHTML = makeSpark(entries);
     applyTrendBadge(d.id, entries);
   }
+}
+
+async function renderCalendarHeatmap() {
+  const container = document.getElementById('calHeatmap');
+  if (!container) return;
+
+  const sessions = await dbGetAll('sessions');
+  const dayMap = {};
+  for (const sess of sessions) {
+    const d = new Date(sess.id);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    dayMap[key] = (dayMap[key] || 0) + (sess.drills?.length || 1);
+  }
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const WEEKS = 16;
+  // Start on the Monday before 16 weeks ago
+  const startDate = new Date(today);
+  startDate.setDate(startDate.getDate() - WEEKS * 7 + 1);
+  const dow = startDate.getDay();
+  startDate.setDate(startDate.getDate() - (dow === 0 ? 6 : dow - 1));
+
+  const weeks = [];
+  const cur = new Date(startDate);
+  for (let w = 0; w < WEEKS; w++) {
+    const week = [];
+    for (let d = 0; d < 7; d++) {
+      const key = `${cur.getFullYear()}-${String(cur.getMonth()+1).padStart(2,'0')}-${String(cur.getDate()).padStart(2,'0')}`;
+      week.push({ key, count: dayMap[key] || 0, future: cur > today });
+      cur.setDate(cur.getDate() + 1);
+    }
+    weeks.push(week);
+  }
+
+  function col(count, future) {
+    if (future || count === 0) return 'var(--border)';
+    if (count <= 2) return 'rgba(0,191,255,.25)';
+    if (count <= 5) return 'rgba(0,191,255,.6)';
+    return 'var(--cyan)';
+  }
+
+  const DAY_LBLS = ['M','T','W','T','F','S','S'];
+  container.innerHTML = `
+    <div class="cal-wrap">
+      <div class="cal-day-col">${DAY_LBLS.map(l=>`<div class="cal-lbl">${l}</div>`).join('')}</div>
+      <div class="cal-weeks-col">
+        ${weeks.map(week=>`<div class="cal-week-col">${week.map(c=>`<div class="cal-cell" style="background:${col(c.count,c.future)}" title="${c.key}${c.count?' — '+c.count+' drills':''}"></div>`).join('')}</div>`).join('')}
+      </div>
+    </div>
+    <div class="cal-legend">
+      <span class="cal-leg-lbl">LESS</span>
+      <div class="cal-cell" style="background:var(--border)"></div>
+      <div class="cal-cell" style="background:rgba(0,191,255,.25)"></div>
+      <div class="cal-cell" style="background:rgba(0,191,255,.6)"></div>
+      <div class="cal-cell" style="background:var(--cyan)"></div>
+      <span class="cal-leg-lbl">MORE</span>
+    </div>`;
 }
 
 async function renderWeakAreaReport() {

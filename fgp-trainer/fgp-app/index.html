@@ -908,6 +908,14 @@ body {
 /* ─── SPARKLINES ─────────────────────────── */
 .dc-spark { display: inline-flex; align-items: center; margin-left: 8px; flex-shrink: 0; }
 .spark-svg { display: block; }
+.cal-wrap { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px; }
+.cal-day-col { display: flex; flex-direction: column; gap: 2px; padding-top: 0; flex-shrink: 0; }
+.cal-lbl { width: 10px; height: 10px; font-family: 'Courier New', monospace; font-size: 7px; color: var(--dim2); display: flex; align-items: center; justify-content: center; }
+.cal-weeks-col { display: flex; gap: 2px; overflow-x: auto; }
+.cal-week-col { display: flex; flex-direction: column; gap: 2px; }
+.cal-cell { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.cal-legend { display: flex; align-items: center; gap: 3px; margin-top: 8px; justify-content: flex-end; }
+.cal-leg-lbl { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 1px; color: var(--dim2); }
 .wa-item {
   display: flex; justify-content: space-between; align-items: center;
   padding: 10px 12px; border-bottom: 1px solid var(--border);
@@ -1836,6 +1844,10 @@ textarea.cad-inp { min-height:auto; }
     </div>
 
     <div class="prog-section">
+      <div class="prog-title">PRACTICE CALENDAR</div>
+      <div id="calHeatmap"></div>
+    </div>
+    <div class="prog-section">
       <div class="prog-title">⚠ WEAK AREAS</div>
       <div id="weakAreaList"></div>
     </div>
@@ -1920,7 +1932,11 @@ textarea.cad-inp { min-height:auto; }
       <div class="sf-group" style="margin-top:24px">
         <div class="sf-title">DATA</div>
         <button class="sf-danger-btn" onclick="exportCSV()" style="border-color:var(--cyan);color:var(--cyan)">[ EXPORT SCORES (CSV) ]</button>
-        <button class="sf-danger-btn" onclick="exportData()" style="margin-top:8px">[ EXPORT ALL DATA (JSON) ]</button>
+        <button class="sf-danger-btn" onclick="exportData()" style="margin-top:8px;border-color:var(--cyan);color:var(--cyan)">[ BACKUP ALL DATA (JSON) ]</button>
+        <label class="sf-danger-btn" style="margin-top:8px;border-color:var(--gold);color:var(--gold);display:block;text-align:center;cursor:pointer">
+          [ RESTORE FROM BACKUP ]
+          <input type="file" accept=".json" style="display:none" onchange="importData(this)">
+        </label>
         <button class="sf-danger-btn" onclick="clearData()" style="margin-top:8px;border-color:var(--dim);color:var(--dim2)">[ CLEAR ALL SESSION DATA ]</button>
       </div>
       <div class="sf-section">
