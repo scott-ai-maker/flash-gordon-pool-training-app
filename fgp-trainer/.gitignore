@@ -1,0 +1,31 @@
+# ── Windows metadata ──────────────────────────────
+*.Zone.Identifier
+Thumbs.db
+desktop.ini
+
+# ── Book page scans (large, not for repo) ─────────
+pg_*.png
+page_*.png
+ch3_page*.png
+
+# ── Source PDF (copyrighted) ──────────────────────
+*.pdf
+
+# ── Dev / extraction artifacts ────────────────────
+extract_svgs.py
+apply_svgs.py
+crop_diagrams.py
+extracted_svgs.js
+manual_svgs.js
+FGP_ClaudeCode_Prompt.md
+fgp-ch3-training.html
+
+# ── Misc scratch images at root ───────────────────
+ch3_page65.png
+page_155.png
+page_225.png
+page_255.png
+page_99.png
+
+# ── OS ────────────────────────────────────────────
+.DS_Store

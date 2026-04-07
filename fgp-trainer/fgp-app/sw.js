@@ -3,12 +3,17 @@
    Cache-first strategy. Offline capable.
 ═══════════════════════════════════════════ */
 
-const CACHE = 'fgp-v12';
+const CACHE = 'fgp-v41';
 const ASSETS = [
   '/fgp-app/',
   '/fgp-app/index.html',
   '/fgp-app/app.js',
+  '/fgp-app/cadence.js',
+  '/fgp-app/rds.js',
   '/fgp-app/manifest.json',
+  '/fgp-app/logo.png',
+  '/fgp-app/icon-192.png',
+  '/fgp-app/icon-512.png',
   'https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500&display=swap',
 ];
 
