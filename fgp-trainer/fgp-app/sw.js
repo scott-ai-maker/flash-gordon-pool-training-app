@@ -3,7 +3,7 @@
    Cache-first strategy. Offline capable.
 ═══════════════════════════════════════════ */
 
-const CACHE = 'fgp-v42';
+const CACHE = 'fgp-v43';
 const ASSETS = [
   '/',
   '/index.html',

@@ -5197,10 +5197,28 @@ async function buildAndShowPlan() {
   }
 }
 
+// Returns a need boost (0-30) based on how relevant a chapter is for the player's Fargo level.
+// Primary focus chapters get +25, secondary get +10, others get 0.
+function getFargoChapterBoost(chNum, fargo) {
+  let primary, secondary;
+  if      (fargo < 500) { primary = [1,2];     secondary = [3]; }
+  else if (fargo < 560) { primary = [1,2,3];   secondary = [4]; }
+  else if (fargo < 620) { primary = [3,4,5];   secondary = [2,6]; }
+  else if (fargo < 680) { primary = [4,5,6];   secondary = [3,7]; }
+  else if (fargo < 730) { primary = [5,6,7];   secondary = [4,8]; }
+  else                  { primary = [6,7,8,9]; secondary = [5]; }
+  if (primary.includes(chNum))   return 25;
+  if (secondary.includes(chNum)) return 10;
+  return 0;
+}
+
 async function buildDailyPlan(minutes) {
   const allHistory = await dbGetAll('history');
   const histMap = {};
   allHistory.forEach(h => { histMap[h.id] = h; });
+
+  const profileRaw = localStorage.getItem('fgp-profile');
+  const fargo = profileRaw ? (JSON.parse(profileRaw).fargo || 640) : 640;
 
   const now = Date.now();
   const candidates = [];
@@ -5234,6 +5252,8 @@ async function buildDailyPlan(minutes) {
           }
         }
 
+        need += getFargoChapterBoost(ch.num, fargo);
+
         candidates.push({
           drill, chNum: ch.num, chTitle: ch.title, secTitle: sec.title,
           need, dur: getDrillDuration(drill),
@@ -5266,7 +5286,7 @@ async function buildDailyPlan(minutes) {
     used += c.dur;
   }
 
-  return { drills: plan.sort((a, b) => a.chNum - b.chNum), totalMin: used };
+  return { drills: plan.sort((a, b) => a.chNum - b.chNum), totalMin: used, fargo };
 }
 
 function getDrillDuration(drill) {
@@ -5295,7 +5315,7 @@ function showPlanResult(result) {
     <div class="sec-hdr" style="margin-bottom:16px">
       <div class="sh-tag">DAILY PLAN // ~${totalMin} MINUTES // ${drills.length} DRILLS</div>
       <div class="sh-name">TODAY'S SESSION</div>
-      <div class="sh-desc">Drills selected based on your score history, recency, and improvement trends. Weakest areas prioritized first.</div>
+      <div class="sh-desc">Drills selected based on your score history, recency, and improvement trends — weighted for Fargo ${result.fargo} focus areas. Weakest areas prioritized first.</div>
     </div>
     ${drills.map(item => `
       <div class="plan-drill-card" onclick="navigateToDrill(${item.chNum},'${item.drill.id}')">
