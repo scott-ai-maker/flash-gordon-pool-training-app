@@ -3779,6 +3779,50 @@ function getDrillName(chNum, drillId) {
   return drillId;
 }
 
+async function computeFargoSuggestion(session) {
+  const profile = await getProfile();
+  const currentFargo = profile.fargo || 550;
+
+  const drills = session.drills || [];
+  const scoredDrills = drills.filter(d => d.scoreType === 'hitMiss' || d.scoreType === 'points');
+  if (scoredDrills.length < 3) return null;
+
+  const allHistory = await dbGetAll('history');
+  const histMap = {};
+  allHistory.forEach(h => { histMap[h.id] = h; });
+
+  const pcts = [];
+  for (const d of scoredDrills) {
+    const hist = histMap[d.drillId];
+    if (!hist?.entries?.length) continue;
+    const sessionEntries = hist.entries.filter(e => e.ts >= session.id);
+    if (!sessionEntries.length) continue;
+    const avg = sessionEntries.reduce((s, e) => s + e.v, 0) / sessionEntries.length;
+    pcts.push(avg);
+  }
+  if (pcts.length < 3) return null;
+
+  const avgPct = Math.round(pcts.reduce((s, v) => s + v, 0) / pcts.length);
+  let delta = 0;
+  if      (avgPct > 80) delta =  3;
+  else if (avgPct > 72) delta =  1;
+  else if (avgPct < 35) delta = -3;
+  else if (avgPct < 45) delta = -1;
+  if (delta === 0) return null;
+
+  const suggested = Math.max(200, Math.min(1000, currentFargo + delta));
+  return { currentFargo, suggested, avgPct, delta };
+}
+
+async function acceptFargoSuggestion(newFargo) {
+  await saveProfile({ fargo: newFargo });
+  document.getElementById('navFargo').textContent = 'FARGO ' + newFargo;
+  const sbCur = document.getElementById('sbFargoCur');
+  if (sbCur) sbCur.textContent = newFargo;
+  const btn = document.querySelector('.ss-fargo-btn');
+  if (btn) { btn.textContent = '✓ UPDATED'; btn.disabled = true; btn.style.background = 'var(--green)'; }
+}
+
 async function endSession() {
   if (!activeSession) return;
   if (!confirm('End this session?')) return;
@@ -3788,7 +3832,8 @@ async function endSession() {
   const finished = { ...activeSession };
   activeSession = null;
   updateSessionTab();
-  showSessionSummary(finished);
+  const fargoSuggestion = await computeFargoSuggestion(finished);
+  showSessionSummary(finished, fargoSuggestion);
 }
 
 /* ──────────────────────────────────────────
@@ -5236,8 +5281,8 @@ async function buildDailyPlan(minutes) {
   const histMap = {};
   allHistory.forEach(h => { histMap[h.id] = h; });
 
-  const profileRaw = localStorage.getItem('fgp-profile');
-  const fargo = profileRaw ? (JSON.parse(profileRaw).fargo || 550) : 640;
+  const profile = await getProfile();
+  const fargo = profile.fargo || 550;
 
   const now = Date.now();
   const candidates = [];
@@ -5483,7 +5528,7 @@ async function loadNotes(drills) {
 /* ──────────────────────────────────────────
    SESSION SUMMARY
 ────────────────────────────────────────── */
-function showSessionSummary(session) {
+function showSessionSummary(session, fargoSuggestion) {
   const old = document.getElementById('session-summary');
   if (old) old.remove();
 
@@ -5492,6 +5537,14 @@ function showSessionSummary(session) {
   const drillCount  = session.drills?.length || 0;
   const progTotal   = session.programDrills?.length || 0;
   const pct         = progTotal ? Math.round(drillCount / progTotal * 100) : null;
+
+  const fargoHtml = fargoSuggestion ? `
+    <div class="ss-fargo">
+      <div class="ss-fargo-title">FARGO ESTIMATE</div>
+      <div class="ss-fargo-detail">Avg drill score: ${fargoSuggestion.avgPct}%</div>
+      <div class="ss-fargo-change">${fargoSuggestion.currentFargo} → ${fargoSuggestion.suggested} (${fargoSuggestion.delta > 0 ? '+' : ''}${fargoSuggestion.delta})</div>
+      <button class="ss-fargo-btn" onclick="acceptFargoSuggestion(${fargoSuggestion.suggested})">ACCEPT UPDATE</button>
+    </div>` : '';
 
   const wrap = document.createElement('div');
   wrap.id = 'session-summary';
@@ -5514,6 +5567,7 @@ function showSessionSummary(session) {
           <div class="ss-lbl">COMPLETE</div>
         </div>` : ''}
       </div>
+      ${fargoHtml}
       <div class="ss-btns">
         <button class="ss-btn-primary" onclick="dismissSummary('progress')">VIEW PROGRESS →</button>
         <button class="ss-btn-secondary" onclick="dismissSummary('train')">BACK TO TRAINING</button>
