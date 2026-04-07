@@ -4440,6 +4440,17 @@ function hmScore(id, type, chNum) {
   HM[id].last = type;
   updateHM(id);
   if (chNum) logSessionDrill(Number(chNum), id, 'hitMiss', HM[id]);
+  const t = HM[id].h + HM[id].m;
+  const pct = t > 0 ? Math.round(HM[id].h / t * 100) : null;
+  if (pct !== null) {
+    dbGet('history', id).then(hist => {
+      hist = hist || { id, entries: [] };
+      hist.entries.push({ v: pct, ts: Date.now() });
+      if (hist.entries.length > 30) hist.entries = hist.entries.slice(-30);
+      dbPut('history', hist);
+      applyTrendBadge(id, hist.entries);
+    });
+  }
   setScore(id+'-hm', HM[id]);
 }
 
@@ -4591,9 +4602,17 @@ function racksReset(id, numRacks) {
 const PT_VALS = {};
 function ptAdd(id, val, max, chNum) {
   if (!PT_VALS[id]) PT_VALS[id] = 0;
-  PT_VALS[id] = Math.min(PT_VALS[id] + val, max);
+  PT_VALS[id] = Math.min(PT_VALS[id] + Number(val), Number(max));
   const el = document.getElementById('pt-'+id);
   if (el) el.textContent = PT_VALS[id];
+  const pct = Math.round(PT_VALS[id] / Number(max) * 100);
+  dbGet('history', id).then(hist => {
+    hist = hist || { id, entries: [] };
+    hist.entries.push({ v: pct, ts: Date.now() });
+    if (hist.entries.length > 30) hist.entries = hist.entries.slice(-30);
+    dbPut('history', hist);
+    applyTrendBadge(id, hist.entries);
+  });
   setScore(id+'-pts', PT_VALS[id]);
   if (chNum) logSessionDrill(Number(chNum), id, 'points', PT_VALS[id]);
 }
@@ -5228,12 +5247,26 @@ async function buildDailyPlan(minutes) {
       for (const drill of sec.drills) {
         if (!drill.scoring) continue;
         const sid   = drill.scoring.id || drill.id;
-        const hist  = histMap[sid];
-        const entries = hist?.entries || [];
-        const last  = entries[entries.length - 1];
-        const lastTs  = last?.ts || 0;
-        const lastVal = last?.v ?? null;
-        const daysSince = lastTs ? (now - lastTs) / 86400000 : 999;
+        const isAB  = drill.scoring.type === 'hitMissAB' || drill.scoring.type === 'pointTrackerAB';
+        let entries, lastVal, lastTs, daysSince;
+        if (isAB) {
+          const eA = histMap[sid + '-a']?.entries || [];
+          const eB = histMap[sid + '-b']?.entries || [];
+          const lA = eA[eA.length - 1];
+          const lB = eB[eB.length - 1];
+          lastVal = (lA && lB) ? Math.round((lA.v + lB.v) / 2)
+                  : (lA?.v ?? lB?.v ?? null);
+          lastTs  = Math.max(lA?.ts || 0, lB?.ts || 0);
+          daysSince = lastTs ? (now - lastTs) / 86400000 : 999;
+          entries = [...eA, ...eB].sort((a, b) => a.ts - b.ts);
+        } else {
+          const hist = histMap[sid];
+          entries = hist?.entries || [];
+          const last = entries[entries.length - 1];
+          lastTs  = last?.ts || 0;
+          lastVal = last?.v ?? null;
+          daysSince = lastTs ? (now - lastTs) / 86400000 : 999;
+        }
 
         let need = 0;
         if (!lastTs) {
