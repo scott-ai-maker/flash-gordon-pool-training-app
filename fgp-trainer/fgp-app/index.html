@@ -908,6 +908,18 @@ body {
 /* ─── SPARKLINES ─────────────────────────── */
 .dc-spark { display: inline-flex; align-items: center; margin-left: 8px; flex-shrink: 0; }
 .spark-svg { display: block; }
+.wa-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  cursor: pointer; gap: 10px;
+}
+.wa-item:last-child { border-bottom: none; }
+.wa-item:active { background: var(--panel2); }
+.wa-left { flex: 1; min-width: 0; }
+.wa-ch { font-family: 'Courier New', monospace; font-size: 8px; letter-spacing: 1px; color: var(--dim2); margin-bottom: 3px; }
+.wa-name { font-family: 'Rajdhani', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wa-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.wa-score { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; min-width: 42px; text-align: right; }
 
 /* ─── TREND INDICATOR ────────────────────── */
 .dc-trend {
@@ -1823,6 +1835,10 @@ textarea.cad-inp { min-height:auto; }
       </div>
     </div>
 
+    <div class="prog-section">
+      <div class="prog-title">⚠ WEAK AREAS</div>
+      <div id="weakAreaList"></div>
+    </div>
     <div class="prog-section">
       <div class="prog-title">SESSION STATS</div>
       <div class="stat-grid">

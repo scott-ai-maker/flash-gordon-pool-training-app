@@ -4835,6 +4835,7 @@ async function refreshProgress() {
   }
 
   refreshProgressRatings();
+  renderWeakAreaReport();
 }
 
 /* ──────────────────────────────────────────
@@ -5462,13 +5463,68 @@ function makeSpark(entries) {
 }
 
 async function loadSparklines(drills) {
+  const allHistory = await dbGetAll('history');
+  const histMap = {};
+  allHistory.forEach(h => { histMap[h.id] = h; });
+
   for (const d of drills) {
-    const hist = await dbGet('history', d.id);
-    if (!hist || !hist.entries || hist.entries.length < 2) continue;
     const el = document.getElementById('spark-' + d.id);
-    if (el) el.innerHTML = makeSpark(hist.entries);
-    applyTrendBadge(d.id, hist.entries);
+    if (!el) continue;
+    const sid   = d.scoring?.id || d.id;
+    const isAB  = d.scoring?.type === 'hitMissAB' || d.scoring?.type === 'pointTrackerAB';
+    const entries = isAB
+      ? [...(histMap[sid+'-a']?.entries||[]), ...(histMap[sid+'-b']?.entries||[])].sort((a,b)=>a.ts-b.ts)
+      : (histMap[sid]?.entries || []);
+    if (entries.length < 2) continue;
+    el.innerHTML = makeSpark(entries);
+    applyTrendBadge(d.id, entries);
   }
+}
+
+async function renderWeakAreaReport() {
+  const container = document.getElementById('weakAreaList');
+  if (!container) return;
+
+  const allHistory = await dbGetAll('history');
+  const histMap = {};
+  allHistory.forEach(h => { histMap[h.id] = h; });
+
+  const scored = [];
+  for (const ch of CHAPTERS) {
+    for (const sec of ch.sections) {
+      for (const drill of sec.drills) {
+        if (!drill.scoring) continue;
+        const sid  = drill.scoring.id || drill.id;
+        const isAB = drill.scoring.type === 'hitMissAB' || drill.scoring.type === 'pointTrackerAB';
+        const entries = isAB
+          ? [...(histMap[sid+'-a']?.entries||[]), ...(histMap[sid+'-b']?.entries||[])].sort((a,b)=>a.ts-b.ts)
+          : (histMap[sid]?.entries || []);
+        if (entries.length < 3) continue;
+        const recent = entries.slice(-5);
+        const avg = Math.round(recent.reduce((s, e) => s + e.v, 0) / recent.length);
+        scored.push({ drill, chNum: ch.num, chTitle: ch.title, avg, entries });
+      }
+    }
+  }
+
+  const weak = scored.filter(s => s.avg < 70).sort((a, b) => a.avg - b.avg).slice(0, 8);
+
+  if (weak.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:16px;font-size:11px;color:var(--dim);letter-spacing:1px">KEEP TRAINING TO BUILD HISTORY</div>';
+    return;
+  }
+
+  container.innerHTML = weak.map(item => `
+    <div class="wa-item" onclick="navigateToDrill(${item.chNum},'${item.drill.id}')">
+      <div class="wa-left">
+        <div class="wa-ch">CH.${String(item.chNum).padStart(2,'0')} // ${escHtml(item.chTitle.toUpperCase())}</div>
+        <div class="wa-name">${escHtml(item.drill.name)}</div>
+      </div>
+      <div class="wa-right">
+        <div class="wa-score" style="color:${item.avg<40?'var(--red)':item.avg<55?'var(--gold)':'var(--text)'}">${item.avg}%</div>
+        ${makeSpark(item.entries)}
+      </div>
+    </div>`).join('');
 }
 
 function applyTrendBadge(id, entries) {
